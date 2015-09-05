@@ -1,6 +1,6 @@
 package com.multichoice.astar;
 
-import com.multichoice.utility.PathFinderConstants;
+import com.multichoice.config.PathFinderConfiguration;
 import com.multichoice.utility.Vector2i;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,14 +12,15 @@ import java.util.ArrayList;
  */
 public class MapReader
 {
-    public static Map createMapFromFile(String fileName)
+    public static Map createMap(PathFinderConfiguration configuration)
     {
-        ArrayList<ArrayList<Node>> tileList = readFileAndCreateTileList(fileName);
-        Map map = validateTileListAndCreateMap(tileList);
+        String inputMapFilePath = configuration.getInputMapFilePath();
+        ArrayList<ArrayList<Node>> tileList = readFileAndCreateTileList(inputMapFilePath, configuration);
+        Map map = validateTileListAndCreateMap(tileList, configuration);
         return map;
     }
 
-    private static ArrayList<ArrayList<Node>> readFileAndCreateTileList(String fileName)
+    private static ArrayList<ArrayList<Node>> readFileAndCreateTileList(String fileName, PathFinderConfiguration configuration)
     {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName)))
         {
@@ -34,7 +35,8 @@ public class MapReader
                 ArrayList<Node> listOfTilesInRow = new ArrayList<>();
                 for (String tileValue : tileValues)
                 {
-                    Node tile = new Node(tileValue, getMovementCost(tileValue), new Vector2i(row, column));
+                    Node tile = new Node(tileValue, configuration.getMovementCost(tileValue), new Vector2i(row, column), 
+                            configuration.isWalkableTile(tileValue));
                     listOfTilesInRow.add(tile);
                     column++;
                 }
@@ -52,7 +54,7 @@ public class MapReader
         }
     }
 
-    private static Map validateTileListAndCreateMap(ArrayList<ArrayList<Node>> tileList)
+    private static Map validateTileListAndCreateMap(ArrayList<ArrayList<Node>> tileList, PathFinderConfiguration configuration)
     {
         // If valid tiles are found in map file, create a Map object
         Node userStartTile = null, goalTile = null;
@@ -69,7 +71,7 @@ public class MapReader
                     Node tile = listOfTilesInRow.get(j);
                     
                     // Check for more than one user start tiles
-                    if (tile.getTileString().equals(PathFinderConstants.USER_START))
+                    if (configuration.isStartTile(tile.getTileString()))
                     {
                         if (userStartTile == null)
                         {
@@ -82,7 +84,7 @@ public class MapReader
                     }
                     
                     // Check for more than one goal tiles
-                    if (tile.getTileString().equals(PathFinderConstants.GOAL_TILE))
+                    if (configuration.isGoalTile(tile.getTileString()))
                     {
                         if (goalTile == null)
                         {
@@ -111,30 +113,30 @@ public class MapReader
      * @param tileValue the string representation of tile
      * @return cost of movement within the tile
      */
-    private static int getMovementCost(String tileValue)
-    {
-        int tileMovementCost = 0;
-        switch (tileValue)
-        {
-            case PathFinderConstants.FLATLANDS:
-            case PathFinderConstants.GOAL_TILE:
-            case PathFinderConstants.USER_START:
-                tileMovementCost = PathFinderConstants.MOVEMENT_COST_FLATLANDS;
-                break;
-            case PathFinderConstants.FOREST:
-                tileMovementCost = PathFinderConstants.MOVEMENT_COST_FOREST;
-                break;
-            case PathFinderConstants.MOUNTAIN:
-                tileMovementCost = PathFinderConstants.MOVEMENT_COST_MOUNTAIN;
-                break;
-            case PathFinderConstants.WATER:
-                tileMovementCost = PathFinderConstants.MOVEMENT_COST_WATER;
-                break;
-            default:
-                exitProgramOnError("The tile obtained from map is not defined. Please correct the map and try again. Tile = " + tileValue);
-        }
-        return tileMovementCost;
-    }
+//    private static int getMovementCost(String tileValue)
+//    {
+//        int tileMovementCost = 0;
+//        switch (tileValue)
+//        {
+//            case PathFinderConstants.FLATLANDS:
+//            case PathFinderConstants.GOAL_TILE:
+//            case PathFinderConstants.USER_START:
+//                tileMovementCost = PathFinderConstants.MOVEMENT_COST_FLATLANDS;
+//                break;
+//            case PathFinderConstants.FOREST:
+//                tileMovementCost = PathFinderConstants.MOVEMENT_COST_FOREST;
+//                break;
+//            case PathFinderConstants.MOUNTAIN:
+//                tileMovementCost = PathFinderConstants.MOVEMENT_COST_MOUNTAIN;
+//                break;
+//            case PathFinderConstants.WATER:
+//                tileMovementCost = PathFinderConstants.MOVEMENT_COST_WATER;
+//                break;
+//            default:
+//                exitProgramOnError("The tile obtained from map is not defined. Please correct the map and try again. Tile = " + tileValue);
+//        }
+//        return tileMovementCost;
+//    }
 
     private static void exitProgramOnError(String message)
     {

@@ -1,6 +1,5 @@
 package com.multichoice.astar;
 
-import com.multichoice.utility.PathFinderConstants;
 import com.multichoice.utility.Vector2i;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +13,15 @@ public class Node
     private final int movementCost;
     private final Vector2i location;
     private Node parent;
+    private final boolean walkable;
     private double fCost, gCost, hCost;
 
-    public Node(String tileString, int movementCost, Vector2i location)
+    public Node(String tileString, int movementCost, Vector2i location, boolean walkable)
     {
         this.tileString = tileString;
         this.movementCost = movementCost;
         this.location = location;
+        this.walkable = walkable;
     }
 
     /**
@@ -115,7 +116,7 @@ public class Node
                 Node node = map.getNodeAtPosition(x + getLocation().getX(), y + getLocation().getY());
                 if (null != node)
                 {
-                    if (!node.getTileString().equals(PathFinderConstants.WATER))
+                    if (node.walkable)
                     {
                         neighbourNodeList.add(node);
                     }

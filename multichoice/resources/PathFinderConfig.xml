@@ -1,0 +1,67 @@
+<pathFinderConfig>
+	<inputMapFilePath>resources/large_map.txt</inputMapFilePath>
+	<outputMapFilePath>resources/large_map_output.txt</outputMapFilePath>
+	<pathTileImage>resources/path.jpg</pathTileImage>
+
+	<tiles>
+		<tile>
+			<tileName>User Start</tileName>
+			<tileString>@</tileString>
+			<costOfMovement>1</costOfMovement>
+			<isStartNode>true</isStartNode>
+			<isEndNode>false</isEndNode>
+			<isWalkable>false</isWalkable>
+			<tileImage>resources/userStart.jpg</tileImage>
+		</tile>
+
+		<tile>
+			<tileName>Goal Tile</tileName>
+			<tileString>X</tileString>
+			<costOfMovement>1</costOfMovement>
+			<isStartNode>false</isStartNode>
+			<isEndNode>true</isEndNode>
+			<isWalkable>true</isWalkable>
+			<tileImage>resources/goalTile.jpg</tileImage>
+		</tile>
+
+		<tile>
+			<tileName>Flatlands</tileName>
+			<tileString>.</tileString>
+			<costOfMovement>1</costOfMovement>
+			<isStartNode>false</isStartNode>
+			<isEndNode>false</isEndNode>
+			<isWalkable>true</isWalkable>
+			<tileImage>resources/flatland.jpg</tileImage>
+		</tile>
+
+		<tile>
+			<tileName>Forest</tileName>
+			<tileString>*</tileString>
+			<costOfMovement>2</costOfMovement>
+			<isStartNode>false</isStartNode>
+			<isEndNode>false</isEndNode>
+			<isWalkable>true</isWalkable>
+			<tileImage>resources/forest.jpg</tileImage>
+		</tile>
+
+		<tile>
+			<tileName>Mountain</tileName>
+			<tileString>^</tileString>
+			<costOfMovement>3</costOfMovement>
+			<isStartNode>false</isStartNode>
+			<isEndNode>false</isEndNode>
+			<isWalkable>true</isWalkable>
+			<tileImage>resources/mountain.jpg</tileImage>
+		</tile>
+
+		<tile>
+			<tileName>Water</tileName>
+			<tileString>~</tileString>
+			<costOfMovement>0</costOfMovement>
+			<isStartNode>false</isStartNode>
+			<isEndNode>false</isEndNode>
+			<isWalkable>false</isWalkable>
+			<tileImage>resources/water.jpg</tileImage>
+		</tile>
+	</tiles>
+</pathFinderConfig>
