@@ -16,7 +16,7 @@ public class Main
         long timeAtStart = System.currentTimeMillis();
         
         // Read pathfinder configuration file and create configs
-        PathFinderConfiguration configuration = new PathFinderConfiguration("resources/PathFinderConfig.xml");
+        PathFinderConfiguration configuration = new PathFinderConfiguration("resources/pathFinderConfig.xml");
         
         // Read and populate map from resources location
         Map map = MapReader.createMap(configuration);

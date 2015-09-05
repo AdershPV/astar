@@ -1,7 +1,7 @@
 <pathFinderConfig>
 	<inputMapFilePath>resources/large_map.txt</inputMapFilePath>
 	<outputMapFilePath>resources/large_map_output.txt</outputMapFilePath>
-	<pathTileImage>resources/path.jpg</pathTileImage>
+	<pathTileImage>resources/userStart.jpg</pathTileImage>
 
 	<tiles>
 		<tile>
