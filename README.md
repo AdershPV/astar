@@ -6,7 +6,7 @@ import > Git > Projects from Git > Clone URI
 
 and paste this link https://github.com/adershpv/astar.git there.
 
-##### Program Short Description
+### Program Short Description
 
 A map is created by reading a text file (large_map.txt) from the resources folder. The characters '@' and 'X' is set as as the starting position and the ending postion respectively.
 The shortest path from '@' to 'X' is generated using the A* algorithm.
